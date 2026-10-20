@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Lazy.nvim Bootstrap and Configuration
 -- Provides fast, declarative, and reproducible plugin management
 

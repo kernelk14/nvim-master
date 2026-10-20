@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Core configuration entry point
 -- Loads pure Neovim settings (options, keymaps, autocommands)
 -- followed by the lazy.nvim plugin ecosystem.

@@ -2,6 +2,10 @@
 # ==============================================================================
 # Cross-Platform Automated Bootstrap Script for Linux and macOS
 # Installs, backs up, and validates the minimal Neovim configuration.
+#
+# AI-generated configuration (Antigravity). This script was written by an AI
+# coding agent. Audit it before running. See README.md for the full
+# AI-authorship disclosure.
 # ==============================================================================
 
 set -euo pipefail

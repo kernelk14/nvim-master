@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Autocompletion and Snippets Configuration
 -- Fast, non-intrusive popup completion powered by nvim-cmp and LuaSnip
 

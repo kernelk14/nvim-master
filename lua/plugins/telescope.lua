@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Telescope Fuzzy Finder
 -- Fast and extensible finder for files, text, buffers, and git status
 -- Gracefully handles absence of ripgrep or C compilers
