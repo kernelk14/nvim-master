@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Core Autocommands
 -- Clean, lightweight event hooks for enhanced editing ergonomics
 

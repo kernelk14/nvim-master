@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Language Server Protocol (LSP) Configuration
 -- Seamless integration with Mason for automatic server management
 

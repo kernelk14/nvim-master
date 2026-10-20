@@ -2,6 +2,10 @@
 
 This document details the validation procedures, test executions, observed results, and manual commands for evaluating the minimal Neovim configuration.
 
+> [!IMPORTANT]
+> **This entire configuration was written by an AI coding agent (Antigravity).**
+> The validation below was performed by the same AI agent that generated the configuration. These are AI-reported results, not independent human verification, and there is no automated test suite backing them. Reproduce the commands yourself before relying on them.
+
 ---
 
 ## 1. Automated Verification Summary

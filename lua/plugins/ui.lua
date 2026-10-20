@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- UI Enhancements: Discoverable Keymaps & Statusline
 -- Lightweight components that provide high visual feedback with minimal overhead
 

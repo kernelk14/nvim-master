@@ -3,6 +3,11 @@
     Cross-platform automated bootstrap script for Windows (PowerShell).
     Installs, backs up, and validates the minimal Neovim configuration.
 
+.NOTES
+    AI-generated configuration (Antigravity). This script was written by an AI
+    coding agent. Audit it before running. See README.md for the full
+    AI-authorship disclosure.
+
 .DESCRIPTION
     1. Detects OS architecture and system prerequisites (Neovim >= 0.10.0, Git, ripgrep, compilers).
     2. Safely creates a timestamped backup of any existing Neovim configuration.

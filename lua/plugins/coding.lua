@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Essential Coding Enhancements
 -- Autopairs & Git gutter integration with zero unnecessary bloat
 

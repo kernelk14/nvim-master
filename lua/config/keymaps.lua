@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Core Keymaps
 -- Logical, discoverable, and conflict-free keybindings
 -- All mappings use standard vim.keymap.set with descriptive help text

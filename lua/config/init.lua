@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Config module entry point
 -- Ensures compatible Neovim version and loads core modules
 

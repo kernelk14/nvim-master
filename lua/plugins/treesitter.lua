@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Treesitter Syntax Highlighting and Incremental Parsing
 -- Provides AST-based syntax highlighting, indentation, and folding
 

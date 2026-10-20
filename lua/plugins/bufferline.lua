@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Bufferline: Tabs / Buffer management across the top of the editor
 -- Seamless integration with nvim-web-devicons, LSP diagnostics, and Tokyo Night
 

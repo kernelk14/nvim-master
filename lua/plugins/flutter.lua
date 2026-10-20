@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Flutter & Dart Development
 -- Powered by flutter-tools.nvim: hot reload/restart, widget closing tags, device management
 

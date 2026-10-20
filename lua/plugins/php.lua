@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- PHP & Web Development Tooling
 -- Integrates PhpActor for context actions, class generation, and refactoring
 

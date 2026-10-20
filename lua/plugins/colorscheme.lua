@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Colorscheme Configuration
 -- Tokyo Night: Clean, modern dark theme with deep darks and vibrant accents
 

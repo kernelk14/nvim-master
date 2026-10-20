@@ -1,3 +1,4 @@
+-- AI-generated configuration (Antigravity). See README.md for the authorship disclosure.
 -- Core Neovim Options
 -- Sensible, cross-platform defaults with zero plugin dependencies
 
