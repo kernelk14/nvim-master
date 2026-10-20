@@ -1,0 +1,22 @@
+# Neovim swap, undo, and backup files
+*.swp
+*.swo
+*.un~
+*.bak
+*~
+
+# Lazy.nvim lockfile (optional to track, but often kept in repo or ignored if user prefers dynamic)
+# Uncomment if you want each machine to manage lockfile independently:
+# lazy-lock.json
+
+# Mason packages and temporary files
+.mason/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Profiling and logs
+*.log
+startuptime.log
