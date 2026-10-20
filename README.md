@@ -6,6 +6,10 @@ A clean, modular, and performant Neovim configuration built from the ground up u
 ![Platforms](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue)
 ![Architecture](https://img.shields.io/badge/Arch-x86__64%20%7C%20ARM64-orange)
 ![Startup Time](https://img.shields.io/badge/Startup-%3C35ms-brightgreen)
+![Created by AI](https://img.shields.io/badge/Crafted%20by-AI-8A2BE2)
+
+> [!NOTE]
+> **AI-Generated**: This entire Neovim configuration—including its modular Lua architecture, bootstrap automation scripts, cross-platform compatibility layers, and documentation—was authored by AI.
 
 ---
 
