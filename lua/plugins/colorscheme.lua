@@ -1,35 +1,25 @@
 -- Colorscheme Configuration
--- Fast, modern, high-contrast theme with broad terminal and syntax support
+-- Tokyo Night: Clean, modern dark theme with deep darks and vibrant accents
 
 return {
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "folke/tokyonight.nvim",
     lazy = false,    -- Must load during startup to prevent color flickering
     priority = 1000, -- Load before all other plugins
     opts = {
-      flavour = "mocha", -- latte, frappe, macchiato, mocha
-      transparent_background = false,
-      term_colors = true,
-      integrations = {
-        treesitter = true,
-        native_lsp = {
-          enabled = true,
-          underlines = {
-            errors = { "undercurl" },
-            hints = { "undercurl" },
-            warnings = { "undercurl" },
-            information = { "undercurl" },
-          },
-        },
-        telescope = { enabled = true },
-        which_key = true,
-        gitsigns = true,
+      style = "night", -- Choices: "storm", "moon", "night", or "day"
+      transparent = false,
+      terminal_colors = true,
+      styles = {
+        comments = { italic = true },
+        keywords = { italic = true },
+        sidebars = "dark",
+        floats = "dark",
       },
     },
     config = function(_, opts)
-      require("catppuccin").setup(opts)
-      vim.cmd.colorscheme("catppuccin")
+      require("tokyonight").setup(opts)
+      vim.cmd.colorscheme("tokyonight")
     end,
   },
 }

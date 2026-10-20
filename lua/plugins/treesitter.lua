@@ -4,6 +4,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
@@ -21,6 +22,11 @@ return {
         "python",
         "json",
         "yaml",
+        "dart",
+        "php",
+        "html",
+        "css",
+        "javascript",
       },
       -- Only auto-install parsers if a C compiler is detected
       auto_install = (function()
@@ -58,6 +64,25 @@ return {
       },
     },
     config = function(_, opts)
+      -- Fix nvim-treesitter path quoting on Windows when user home contains spaces
+      if vim.fn.has("win32") == 1 then
+        local ok, shell = pcall(require, "nvim-treesitter.shell_command_selectors")
+        if ok and shell.select_install_rm_cmd then
+          local orig_rm = shell.select_install_rm_cmd
+          shell.select_install_rm_cmd = function(cache_folder, project_name)
+            local cmd = orig_rm(cache_folder, project_name)
+            if cmd and cmd.opts and cmd.opts.args then
+              for i, arg in ipairs(cmd.opts.args) do
+                if type(arg) == "string" and arg:find(" ") and not arg:find('^"') then
+                  cmd.opts.args[i] = '"' .. arg .. '"'
+                end
+              end
+            end
+            return cmd
+          end
+        end
+      end
+
       require("nvim-treesitter.configs").setup(opts)
     end,
   },

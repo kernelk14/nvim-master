@@ -36,12 +36,15 @@ nvim/
 │   │   ├── autocmds.lua       # Autocommands (highlight yank, resize, close utility)
 │   │   └── lazy.lua           # Lazy.nvim bootstrapper & performance profile
 │   └── plugins/
-│       ├── colorscheme.lua    # Catppuccin theme (priority: 1000, eager-loaded)
+│       ├── colorscheme.lua    # Tokyo Night theme (priority: 1000, eager-loaded)
 │       ├── treesitter.lua     # AST syntax highlighting (lazy-loaded on BufReadPost)
 │       ├── lsp.lua            # LSP client, Mason installer, buffer-local keymaps
 │       ├── cmp.lua            # Popup completion & snippets (lazy-loaded on InsertEnter)
 │       ├── telescope.lua      # Fuzzy finder with safe fallback when rg is missing
 │       ├── ui.lua             # Lualine statusline & Which-Key helper (VeryLazy)
+│       ├── bufferline.lua     # Bufferline tab/buffer header (VeryLazy)
+│       ├── flutter.lua        # Flutter & Dart tooling (closing tags, hot reload/restart)
+│       ├── php.lua            # PHP & CodeIgniter refactoring and context actions
 │       └── coding.lua         # Autopairs and Gitsigns (gutter status & hunks)
 ├── scripts/
 │   ├── install.sh             # POSIX / macOS bootstrap script (safe backup, symlink/copy)
@@ -77,7 +80,7 @@ nvim/
             └─> lazy.setup("plugins", { defaults = { lazy = true } })
                       │
                       ├── [Phase 1: Startup (Eager)]
-                      │     └─ catppuccin (priority 1000) -> eliminates visual flicker
+                      │     └─ tokyonight (priority 1000) -> eliminates visual flicker
                       │
                       ├── [Phase 2: File Open (BufReadPost / BufReadPre)]
                       │     ├─ nvim-treesitter (activates parser & syntax tree)
@@ -115,13 +118,16 @@ nvim/
 | Plugin | Purpose | Why This Choice? |
 | :--- | :--- | :--- |
 | **folke/lazy.nvim** | Plugin Manager | Modern standard: lockfile support, automatic shallow git cloning, lazy-loading engine, zero boilerplate. |
-| **catppuccin/nvim** | Colorscheme | Clean contrast, zero startup lag, comprehensive integration with Treesitter, LSP, Telescope, and Lualine. |
+| **folke/tokyonight.nvim** | Colorscheme | Clean contrast, zero startup lag, vibrant accents, comprehensive integration with Treesitter, LSP, Telescope, and Lualine. |
 | **nvim-treesitter/nvim-treesitter** | Syntax Highlighting | Concrete syntax tree parsing replaces slow regex parsing; provides accurate indentation and folding. |
 | **neovim/nvim-lspconfig** | LSP Client Configurations | Official Neovim repository for language server setups; minimal wrapper over Neovim's built-in LSP client. |
 | **williamboman/mason.nvim** | Tool / LSP Installer | Self-contained package manager for LSPs, DAP servers, linters, and formatters directly inside Neovim. |
 | **hrsh7th/nvim-cmp** + **LuaSnip** | Autocompletion & Snippets | Modular completion framework with low latency; supports LSP, buffer words, and file system paths. |
 | **nvim-telescope/telescope.nvim** | Fuzzy Finder | High extensibility, pure Lua fallback without hard C dependencies, intuitive preview window. |
 | **nvim-lualine/lualine.nvim** | Statusline | Blazingly fast, negligible overhead, automatically reflects git branch, file format, and LSP diagnostics. |
+| **akinsho/bufferline.nvim** | Bufferline / Tabs | Snappy top-of-window bufferline with LSP diagnostic badges and pinning support. |
 | **folke/which-key.nvim** | Keymap Discovery | Instant popup guidance when typing prefix keys; eliminates need to memorize uncommon shortcuts. |
 | **windwp/nvim-autopairs** | Bracket / Quote Matching | Lightweight auto-closing pairs with intelligent Treesitter context detection and `nvim-cmp` integration. |
 | **lewis6991/gitsigns.nvim** | Git Gutter & Hunks | Written in pure Lua using Neovim's extmarks; non-blocking asynchronous git diff tracking. |
+| **akinsho/flutter-tools.nvim** | Flutter & Dart Development | Widget closing labels, outline, hot reload/restart, device/emulator runner. |
+| **gbprod/phpactor.nvim** | PHP & CodeIgniter Refactoring | Class generation, namespace import, contextual refactoring for PHP projects. |

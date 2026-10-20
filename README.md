@@ -282,16 +282,19 @@ Leader key is mapped to `<Space>`.
 Every plugin in this configuration was chosen deliberately for stability, maintenance track record, and low footprint:
 
 - **`folke/lazy.nvim`**: Lightning-fast plugin manager with automatic shallow clones, dependency graph management, and lockfile reproducibility.
-- **`catppuccin/nvim`**: Modern, soothing Mocha colorscheme with built-in integrations for Treesitter, LSP, and Lualine.
+- **`folke/tokyonight.nvim`**: Clean, modern dark theme with deep darks, vibrant accents, and built-in integrations for Treesitter, LSP, and Lualine.
 - **`nvim-treesitter/nvim-treesitter`**: Syntax parsing engine that generates concrete syntax trees for accurate code coloring, folding, and indentation.
 - **`neovim/nvim-lspconfig`**: Configures language servers to communicate with Neovim's native LSP client.
 - **`williamboman/mason.nvim` & `mason-lspconfig.nvim`**: Package manager that downloads and updates language servers locally inside Neovim.
 - **`hrsh7th/nvim-cmp` & `L3MON4D3/LuaSnip`**: Asynchronous popup autocompletion and snippet expansion.
 - **`nvim-telescope/telescope.nvim`**: Fuzzy finder for navigating files, text, buffers, and symbols.
 - **`nvim-lualine/lualine.nvim`**: Lightweight, responsive statusline showing mode, git status, file info, and diagnostics.
+- **`akinsho/bufferline.nvim`**: Clean top buffer/tabline with LSP diagnostic badges, pinning, and close options.
 - **`folke/which-key.nvim`**: Discoverability helper displaying popup cheatsheets when you pause on a key prefix.
 - **`windwp/nvim-autopairs`**: Automatically closes parentheses, brackets, and quotes.
 - **`lewis6991/gitsigns.nvim`**: Real-time git changes displayed directly in the gutter without blocking the editor.
+- **`akinsho/flutter-tools.nvim`**: Comprehensive Flutter suite: widget closing tags, hot reload/restart, device/emulator runner.
+- **`gbprod/phpactor.nvim`**: PHP context refactoring, class generation, and namespace management for PHP/CodeIgniter.
 
 ---
 

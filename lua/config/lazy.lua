@@ -53,7 +53,7 @@ lazy.setup({
     lazy = true, -- Lazy-load plugins by default for maximum startup speed
   },
   install = {
-    colorscheme = { "catppuccin", "habamax" },
+    colorscheme = { "tokyonight", "habamax" },
   },
   checker = {
     enabled = false, -- Avoid background network queries on editor startup

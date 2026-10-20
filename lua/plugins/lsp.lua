@@ -88,8 +88,8 @@ return {
       local lspconfig = require("lspconfig")
 
       require("mason-lspconfig").setup({
-        -- Minimal base: ensure lua_ls is ready for Neovim config editing
-        ensure_installed = { "lua_ls" },
+        -- Minimal base: ensure lua_ls and intelephense are ready
+        ensure_installed = { "lua_ls", "intelephense" },
         automatic_installation = false,
         handlers = {
           -- Default handler for automatically configured servers
@@ -114,6 +114,83 @@ return {
                     },
                   },
                   telemetry = { enable = false },
+                },
+              },
+            })
+          end,
+          -- Custom configuration for PHP & CodeIgniter language server
+          ["intelephense"] = function()
+            lspconfig.intelephense.setup({
+              capabilities = capabilities,
+              settings = {
+                intelephense = {
+                  files = {
+                    maxSize = 5000000,
+                  },
+                  environment = {
+                    phpVersion = "8.2",
+                  },
+                  completion = {
+                    insertUseDeclaration = true,
+                    fullyQualifyGlobalConstantsAndFunctions = false,
+                  },
+                  format = {
+                    enable = true,
+                  },
+                  stubs = {
+                    "apache",
+                    "bcmath",
+                    "bz2",
+                    "calendar",
+                    "Core",
+                    "curl",
+                    "date",
+                    "dba",
+                    "dom",
+                    "enchant",
+                    "fileinfo",
+                    "filter",
+                    "ftp",
+                    "gd",
+                    "gettext",
+                    "hash",
+                    "iconv",
+                    "imap",
+                    "intl",
+                    "json",
+                    "ldap",
+                    "libxml",
+                    "mbstring",
+                    "mcrypt",
+                    "mysql",
+                    "mysqli",
+                    "password",
+                    "pcntl",
+                    "pcre",
+                    "PDO",
+                    "pdo_mysql",
+                    "Phar",
+                    "readline",
+                    "recode",
+                    "Reflection",
+                    "regex",
+                    "session",
+                    "SimpleXML",
+                    "soap",
+                    "sockets",
+                    "sodium",
+                    "SPL",
+                    "standard",
+                    "superglobals",
+                    "tokenizer",
+                    "xml",
+                    "xdebug",
+                    "xmlreader",
+                    "xmlwriter",
+                    "yaml",
+                    "zip",
+                    "zlib",
+                  },
                 },
               },
             })
