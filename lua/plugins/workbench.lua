@@ -51,6 +51,12 @@ return {
       title = true,
       panel = "problems",
       panels = { "problems", "quickfix", "output", "terminal" },
+      -- Which implementation serves a pane. "auto" prefers an installed
+      -- plugin and falls back to the built in one, the explorer understands
+      -- "oil" and "neo-tree".
+      providers = {
+        explorer = "auto",
+      },
       session = {
         enabled = true,
         autosave = true,
