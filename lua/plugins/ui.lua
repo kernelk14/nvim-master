@@ -18,6 +18,7 @@ return {
         { "<leader>g", group = "Git" },
         { "<leader>p", group = "PHP / CodeIgniter" },
         { "<leader>w", group = "Window / Splits" },
+        { "<leader>W", group = "Workbench" },
         { "<leader>x", group = "Diagnostics / Quickfix" },
       },
     },

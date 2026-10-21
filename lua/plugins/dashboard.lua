@@ -121,6 +121,11 @@ local function toggle_theme()
   vim.cmd.colorscheme("tokyonight")
 end
 
+-- Open the workbench, the dashboard is replaced by the layout
+local function workbench()
+  require("neoworkbench").open()
+end
+
 -- True when a language server is attached to the current file
 local function lsp_available()
   local buf = file_buffer()
@@ -191,6 +196,7 @@ return {
           { icon = "󰝒", label = "New file", key = "n", action = "new_file" },
           { icon = "󰋚", label = "Recent files", key = "r", action = "recent_files" },
           { icon = "󰍉", label = "Live grep", key = "g", action = live_grep },
+          { icon = "󰉋", label = "Workbench", key = "w", action = workbench },
           {
             icon = "󰌣",
             label = "Code actions",
