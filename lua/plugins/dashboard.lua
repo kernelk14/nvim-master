@@ -121,9 +121,11 @@ local function toggle_theme()
   vim.cmd.colorscheme("tokyonight")
 end
 
--- Open the workbench, the dashboard is replaced by the layout
+-- Open the workbench, the dashboard is left behind and the layout takes over.
+-- The workbench is a lazy plugin, the keys are fed so lazy.nvim can load it
+-- and run the mapping, the same way the shortcut sheet does it.
 local function workbench()
-  require("neoworkbench").open()
+  feed("<leader>W")
 end
 
 -- True when a language server is attached to the current file
@@ -153,6 +155,7 @@ local shortcuts = {
   { icon = "󰌣", label = "Code actions", keys = "<leader>ca", enabled = lsp_available },
   { icon = "󰋢", label = "Rename symbol", keys = "<leader>cr", enabled = lsp_available },
   { icon = "󰊢", label = "Stage hunk", keys = "<leader>hs", enabled = gitsigns_available },
+  { icon = "󰉋", label = "Workbench", keys = "<leader>W" },
 }
 
 return {
