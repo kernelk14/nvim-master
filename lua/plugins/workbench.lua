@@ -3,6 +3,10 @@
 -- The palette is derived from the active colorscheme, so it matches the rest
 -- of the configuration.
 --
+-- The workbench opens when the editor is up, so the plugin is loaded when the
+-- VimEnter event fires. That keeps the startup of the editor fast, the layout
+-- appears right after the first frame.
+--
 -- The keymaps are declared here so lazy.nvim can load the plugin on demand.
 
 return {
@@ -12,7 +16,9 @@ return {
     -- The repository is called nvim-workbench, the module inside is called
     -- neoworkbench, lazy.nvim needs to be told.
     main = "neoworkbench",
-    lazy = true,
+    -- The workbench opens on startup, the plugin is loaded when the editor is
+    -- up so the startup of the editor itself stays fast.
+    event = "VimEnter",
     priority = 900, -- load after the colorscheme so the derived palette matches
     -- Oil serves the explorer pane, it has to be loaded and configured before
     -- the workbench hands the pane over to it.
@@ -54,6 +60,9 @@ return {
     },
     opts = {
       layout = "default",
+      -- Open the workbench when the editor is up. A file on the command line
+      -- still wins, the workbench does not get in the way of opening it.
+      auto_open = true,
       title = true,
       panel = "problems",
       panels = { "problems", "quickfix", "output", "terminal" },

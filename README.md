@@ -346,9 +346,13 @@ Leader key is mapped to `<Space>`.
 | `<leader>WL` | Normal | Change the layout |
 | `<leader>Wq` | Normal | Close the workbench |
 
-The workbench is a lazy plugin, it is loaded the first time it is used. The
-start screen offers it as well, the `Workbench` entry opens the layout
-directly.
+The workbench is the start screen, it opens when the editor is up. The plugin
+is loaded on the `VimEnter` event, so the startup of the editor itself stays
+fast and the layout appears right after the first frame. A file on the command
+line still wins, the workbench does not get in the way of opening it.
+
+The start screen is still available with `<leader>d`, and it offers the
+workbench as well.
 
 The explorer pane is served by [oil.nvim](https://github.com/stevearc/oil.nvim),
 it renders into the pane instead of taking over the window. Remove the

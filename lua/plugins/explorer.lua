@@ -18,8 +18,10 @@ return {
       default_file_explorer = false,
       view_options = {
         show_hidden = true,
-        is_hidden_file = function(_, basename)
-          return basename:match("^%.")
+        -- oil calls this with the name of the entry and the buffer it is
+        -- rendered in.
+        is_hidden_file = function(name)
+          return name:match("^%.") ~= nil
         end,
         natural_order = true,
       },

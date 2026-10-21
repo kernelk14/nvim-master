@@ -169,7 +169,9 @@ return {
       { "<leader>d", "<cmd>Neodash<CR>", desc = "Dashboard" },
     },
     opts = {
-      auto_open = true,
+      -- The workbench is the start screen, the dashboard is opened with
+      -- <leader>d or from the menu of the workbench.
+      auto_open = false,
       theme = "auto", -- derive the palette from the active colorscheme
       transparent = false,
       max_width = 110,
