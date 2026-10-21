@@ -346,6 +346,14 @@ Leader key is mapped to `<Space>`.
 | `<leader>WL` | Normal | Change the layout |
 | `<leader>Wq` | Normal | Close the workbench |
 
+The workbench is a lazy plugin, it is loaded the first time it is used. The
+start screen offers it as well, the `Workbench` entry opens the layout
+directly.
+
+The explorer pane is served by [oil.nvim](https://github.com/stevearc/oil.nvim),
+it renders into the pane instead of taking over the window. Remove the
+`explorer.lua` plugin file to fall back to the built in file tree.
+
 ---
 
 ## Plugins Overview
@@ -363,7 +371,8 @@ Every plugin in this configuration was chosen deliberately for stability, mainte
 - **`akinsho/bufferline.nvim`**: Clean top buffer/tabline with LSP diagnostic badges, pinning, and close options.
 - **`folke/which-key.nvim`**: Discoverability helper displaying popup cheatsheets when you pause on a key prefix.
 - **`kernelk14/nvim-dashboard`**: Custom start screen with a gradient wordmark, live project/git status, recent files, a clickable keybinding cheat sheet, and a palette derived from the active colorscheme.
-- **`kernelk14/nvim-workbench`**: Declarative IDE layout built from real splits, with a dependency free file tree, a switchable panel, tree aware focus movement, and a palette derived from the active colorscheme.
+- **`kernelk14/nvim-workbench`**: Declarative IDE layout built from real splits, with a switchable panel, tree aware focus movement, per project sessions, and a palette derived from the active colorscheme.
+- **`stevearc/oil.nvim`**: File explorer that serves the explorer pane of the workbench, it renders into the pane instead of taking over the window.
 - **`windwp/nvim-autopairs`**: Automatically closes parentheses, brackets, and quotes.
 - **`lewis6991/gitsigns.nvim`**: Real-time git changes displayed directly in the gutter without blocking the editor.
 - **`akinsho/flutter-tools.nvim`**: Comprehensive Flutter suite: widget closing tags, hot reload/restart, device/emulator runner.
