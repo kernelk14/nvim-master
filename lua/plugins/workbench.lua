@@ -68,9 +68,11 @@ return {
       panels = { "problems", "quickfix", "output", "terminal" },
       -- Which implementation serves a pane. "auto" prefers an installed
       -- plugin and falls back to the built in one, the explorer understands
-      -- "oil" and "neo-tree".
+      -- "oil", "neo-tree" and "builtin".
       providers = {
-        explorer = "auto",
+        -- The built in file tree, it works everywhere. Change this to "oil"
+        -- to let oil.nvim serve the pane instead.
+        explorer = "builtin",
       },
       session = {
         enabled = true,

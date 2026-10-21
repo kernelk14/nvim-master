@@ -354,9 +354,19 @@ line still wins, the workbench does not get in the way of opening it.
 The start screen is still available with `<leader>d`, and it offers the
 workbench as well.
 
-The explorer pane is served by [oil.nvim](https://github.com/stevearc/oil.nvim),
-it renders into the pane instead of taking over the window. Remove the
-`explorer.lua` plugin file to fall back to the built in file tree.
+The explorer pane is served by the built in file tree of the workbench, it
+shows the project with the usual icons and opens a file in the editor pane.
+The plugin can also hand the pane over to
+[oil.nvim](https://github.com/stevearc/oil.nvim), change one line to do it:
+
+```lua
+providers = {
+  explorer = "oil",   -- or "neo-tree" or "builtin"
+},
+```
+
+The `neo-tree` variant is available as well, oil.nvim is the dependency of
+the workbench so it is loaded and configured before the pane needs it.
 
 ---
 
