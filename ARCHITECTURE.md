@@ -18,6 +18,7 @@ This document describes the architectural philosophy, directory layout, lifecycl
    - `<leader>c` - Code intelligence, formatting, actions (LSP)
    - `<leader>w` - Window splits and management
    - `<leader>b` - Buffer navigation and deletion
+   - `<leader>d` - Dashboard / start screen
    - `<leader>g` / `<leader>h` - Git hunk inspection and staging (Gitsigns)
    - `<leader>x` - Diagnostics and quickfix
 3. **Sub-50ms Startup Footprint**:
@@ -46,6 +47,7 @@ nvim/
 │       ├── cmp.lua            # Popup completion & snippets (lazy-loaded on InsertEnter)
 │       ├── telescope.lua      # Fuzzy finder with safe fallback when rg is missing
 │       ├── ui.lua             # Lualine statusline & Which-Key helper (VeryLazy)
+│       ├── dashboard.lua      # Start screen: gradient header, cards & keybinding cheat sheet
 │       ├── bufferline.lua     # Bufferline tab/buffer header (VeryLazy)
 │       ├── flutter.lua        # Flutter & Dart tooling (closing tags, hot reload/restart)
 │       ├── php.lua            # PHP & CodeIgniter refactoring and context actions
@@ -84,7 +86,8 @@ nvim/
             └─> lazy.setup("plugins", { defaults = { lazy = true } })
                       │
                       ├── [Phase 1: Startup (Eager)]
-                      │     └─ tokyonight (priority 1000) -> eliminates visual flicker
+                      │     ├─ tokyonight (priority 1000) -> eliminates visual flicker
+                      │     └─ nvim-dashboard (priority 900) -> renders the start screen on VimEnter
                       │
                       ├── [Phase 2: File Open (BufReadPost / BufReadPre)]
                       │     ├─ nvim-treesitter (activates parser & syntax tree)
@@ -131,6 +134,7 @@ nvim/
 | **nvim-lualine/lualine.nvim** | Statusline | Blazingly fast, negligible overhead, automatically reflects git branch, file format, and LSP diagnostics. |
 | **akinsho/bufferline.nvim** | Bufferline / Tabs | Snappy top-of-window bufferline with LSP diagnostic badges and pinning support. |
 | **folke/which-key.nvim** | Keymap Discovery | Instant popup guidance when typing prefix keys; eliminates need to memorize uncommon shortcuts. |
+| **kernelk14/nvim-dashboard** | Start Screen | Dependency-free welcome screen whose palette is derived from the active colorscheme, so it never drifts from the Tokyo Night theme. |
 | **windwp/nvim-autopairs** | Bracket / Quote Matching | Lightweight auto-closing pairs with intelligent Treesitter context detection and `nvim-cmp` integration. |
 | **lewis6991/gitsigns.nvim** | Git Gutter & Hunks | Written in pure Lua using Neovim's extmarks; non-blocking asynchronous git diff tracking. |
 | **akinsho/flutter-tools.nvim** | Flutter & Dart Development | Widget closing labels, outline, hot reload/restart, device/emulator runner. |

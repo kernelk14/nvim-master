@@ -12,6 +12,7 @@ return {
       spec = {
         { "<leader>b", group = "Buffer" },
         { "<leader>c", group = "Code / LSP" },
+        { "<leader>d", group = "Dashboard" },
         { "<leader>f", group = "Find / Telescope" },
         { "<leader>F", group = "Flutter" },
         { "<leader>g", group = "Git" },
@@ -52,7 +53,7 @@ return {
         component_separators = { left = "|", right = "|" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
-          statusline = { "help", "alpha", "dashboard" },
+          statusline = { "help", "alpha", "dashboard", "neodash" },
         },
       },
       sections = {

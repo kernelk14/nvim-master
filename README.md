@@ -283,6 +283,7 @@ Leader key is mapped to `<Space>`.
 | `<leader>ws` | Normal | Split window horizontally (`:split`) |
 | `<leader>wd` | Normal | Close current window split |
 | `<leader>we` | Normal | Make split windows equal size |
+| `<leader>d` | Normal | Open the dashboard / start screen |
 
 ### Buffers & Quickfix
 | Keybinding | Mode | Action |
@@ -351,6 +352,7 @@ Every plugin in this configuration was chosen deliberately for stability, mainte
 - **`nvim-lualine/lualine.nvim`**: Lightweight, responsive statusline showing mode, git status, file info, and diagnostics.
 - **`akinsho/bufferline.nvim`**: Clean top buffer/tabline with LSP diagnostic badges, pinning, and close options.
 - **`folke/which-key.nvim`**: Discoverability helper displaying popup cheatsheets when you pause on a key prefix.
+- **`kernelk14/nvim-dashboard`**: Custom start screen with a gradient wordmark, live project/git status, recent files, a clickable keybinding cheat sheet, and a palette derived from the active colorscheme.
 - **`windwp/nvim-autopairs`**: Automatically closes parentheses, brackets, and quotes.
 - **`lewis6991/gitsigns.nvim`**: Real-time git changes displayed directly in the gutter without blocking the editor.
 - **`akinsho/flutter-tools.nvim`**: Comprehensive Flutter suite: widget closing tags, hot reload/restart, device/emulator runner.
