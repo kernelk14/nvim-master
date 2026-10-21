@@ -9,8 +9,14 @@ return {
   {
     "kernelk14/nvim-workbench",
     name = "nvim-workbench",
+    -- The repository is called nvim-workbench, the module inside is called
+    -- neoworkbench, lazy.nvim needs to be told.
+    main = "neoworkbench",
     lazy = true,
     priority = 900, -- load after the colorscheme so the derived palette matches
+    -- Oil serves the explorer pane, it has to be loaded and configured before
+    -- the workbench hands the pane over to it.
+    dependencies = { "oil.nvim" },
     keys = {
       { "<leader>W", "<cmd>WorkbenchToggle<CR>", desc = "Workbench" },
       {
