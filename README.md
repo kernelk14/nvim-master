@@ -381,7 +381,7 @@ Every plugin in this configuration was chosen deliberately for stability, mainte
 - **`williamboman/mason.nvim` & `mason-lspconfig.nvim`**: Package manager that downloads and updates language servers locally inside Neovim.
 - **`hrsh7th/nvim-cmp` & `L3MON4D3/LuaSnip`**: Asynchronous popup autocompletion and snippet expansion.
 - **`nvim-telescope/telescope.nvim`**: Fuzzy finder for navigating files, text, buffers, and symbols.
-- **`nvim-lualine/lualine.nvim`**: Statusline with a look of its own. The mode is a solid block, the branch and the changes of the repository sit next to it, the file is in the middle with the directory in a dim colour, and the diagnostics, the kind of the file, the place in the file and the clock are on the right. The colours come from the colorscheme that is active.
+- **`nvim-lualine/lualine.nvim`**: Statusline with a look of its own. The line is a row of pills, every group of things sits on a surface that is a shade lighter than the editor. The mode is a solid block with its own icon, the branch and the changes of the repository sit next to it, the file is in the middle with the directory dimmed and a bar that shows where in it you are, and the diagnostics, the kind of the file and the clock are on the right. The colours come from the colorscheme that is active.
 - **`akinsho/bufferline.nvim`**: Clean top buffer/tabline with LSP diagnostic badges, pinning, and close options.
 - **`folke/which-key.nvim`**: Discoverability helper displaying popup cheatsheets when you pause on a key prefix.
 - **`kernelk14/nvim-dashboard`**: Custom start screen with a gradient wordmark, live project/git status, recent files, a clickable keybinding cheat sheet, and a palette derived from the active colorscheme.
