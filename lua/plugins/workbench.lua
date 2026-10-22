@@ -57,9 +57,11 @@ return {
       { "<leader>Wp", "<cmd>WorkbenchPanel<CR>", desc = "Workbench panel" },
       { "<leader>Wt", "<cmd>WorkbenchPanel terminal<CR>", desc = "Workbench terminal" },
       { "<leader>Wx", "<cmd>WorkbenchPanel problems<CR>", desc = "Workbench problems" },
+      { "<leader>Wo", "<cmd>WorkbenchPanel output<CR>", desc = "Workbench output" },
+      { "<leader>Wq", "<cmd>WorkbenchPanel quickfix<CR>", desc = "Workbench quickfix" },
       { "<leader>WL", "<cmd>WorkbenchLayout<CR>", desc = "Workbench layout" },
       { "<leader>Ws", "<cmd>WorkbenchSave<CR>", desc = "Workbench save session" },
-      { "<leader>Wq", "<cmd>WorkbenchClose<CR>", desc = "Workbench close" },
+      { "<leader>Wc", "<cmd>WorkbenchClose<CR>", desc = "Workbench close" },
     },
     opts = {
       layout = "default",
