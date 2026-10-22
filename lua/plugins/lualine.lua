@@ -1,14 +1,17 @@
 -- Lualine: a statusline with a look of its own.
 --
--- The line is calm. A thin bar on the left carries the colour of the mode,
--- everything else is text on the editor. Nothing is boxed, nothing is a pill.
--- The mode, the branch, the file, the diagnostics, the place in the file and
--- the clock are separated by a thin line.
+-- The line is a single continuous strip. No pills, no boxes, no arrows. Each
+-- section flows into the next through a thin diagonal separator, and the
+-- background of each section shifts one shade darker as you move right, like
+-- light passing through a prism.
 --
---   ▎ NORMAL  │  󰊢 main  │  init.lua ●  │  󰅚 1  󰄡 1  │    │  1:1  40%  │  󰇭 14:32  ▰▰▰▱▱▱▱▱▱▱
+--   ▲  main  ╱  init.lua ●  ╱  󰅚1 󰄡1  ╱  LUA  ╱  1:1  ╱  14:32  ╱
 --
--- The colours come from the colorscheme that is active, so the line keeps
--- matching the editor when the colorscheme is changed.
+-- The mode is a single coloured triangle, the colour is the mode. The file
+-- path uses dots instead of slashes. The position is a vertical bar that
+-- grows from the bottom. The colours come from the colorscheme that is
+-- active, so the line keeps matching the editor when the colorscheme is
+-- changed.
 
 local M = {}
 
@@ -54,30 +57,47 @@ end
 
 --- The icon of each mode.
 local mode_icons = {
-  n = "󰅊",
-  no = "󰅊",
-  niI = "󰅊",
-  niR = "󰅊",
-  niV = "󰅊",
-  nt = "󰅊",
-  i = "󰐒",
-  ic = "󰐒",
-  ix = "󰐒",
-  v = "󰓩",
-  vs = "󰓩",
-  V = "󰓩",
-  Vs = "󰓩",
-  s = "󰅍",
-  S = "󰅍",
-  R = "󰅍",
-  Rc = "󰅍",
-  c = "󰘳",
-  cv = "󰘳",
-  ce = "󰘳",
-  r = "󰗼",
-  rm = "󰗼",
-  ["?"] = "󰅊",
+  n = "▲",
+  no = "▲",
+  niI = "▲",
+  niR = "▲",
+  niV = "▲",
+  nt = "▲",
+  i = "▼",
+  ic = "▼",
+  ix = "▼",
+  v = "◆",
+  vs = "◆",
+  V = "◆",
+  Vs = "◆",
+  s = "●",
+  S = "●",
+  R = "■",
+  Rc = "■",
+  c = "▸",
+  cv = "▸",
+  ce = "▸",
+  r = "▲",
+  rm = "▲",
+  ["?"] = "▲",
 }
+
+--- The colour of each mode.
+local function mode_color()
+  local mode = vim.fn.mode()
+  local short = mode:sub(1, 1)
+  if short == "i" then
+    return color("fg", { "DiagnosticInfo", "Function" }, "#7aa2f7")
+  elseif short == "v" or short == "V" or short == "s" or short == "S" then
+    return color("fg", { "DiagnosticHint", "Special" }, "#bb9af7")
+  elseif short == "R" then
+    return color("fg", { "DiagnosticError", "Number" }, "#f7768e")
+  elseif short == "c" then
+    return color("fg", { "DiagnosticWarn", "Identifier" }, "#e0af68")
+  else
+    return color("fg", { "DiagnosticOk", "String" }, "#9ece6a")
+  end
+end
 
 --- Build the theme from the colorscheme that is active.
 ---@return table
@@ -86,25 +106,15 @@ local function theme()
   local fg = color("fg", { "Normal", "StatusLine" }, "#c0caf5")
   local dim = color("fg", { "Comment", "NonText" }, "#565f89")
 
-  local mode_normal = color("fg", { "DiagnosticOk", "String" }, "#9ece6a")
-  local mode_insert = color("fg", { "DiagnosticInfo", "Function" }, "#7aa2f7")
-  local mode_visual = color("fg", { "DiagnosticHint", "Special" }, "#bb9af7")
-  local mode_replace = color("fg", { "DiagnosticError", "Number" }, "#f7768e")
-  local mode_command = color("fg", { "DiagnosticWarn", "Identifier" }, "#e0af68")
+  local normal = color("fg", { "DiagnosticOk", "String" }, "#9ece6a")
+  local insert = color("fg", { "DiagnosticInfo", "Function" }, "#7aa2f7")
+  local visual = color("fg", { "DiagnosticHint", "Special" }, "#bb9af7")
+  local replace = color("fg", { "DiagnosticError", "Number" }, "#f7768e")
+  local command = color("fg", { "DiagnosticWarn", "Identifier" }, "#e0af68")
 
-  local git_branch = color("fg", { "Directory", "Identifier" }, "#7aa2f7")
-  local git_added = color("fg", { "DiffAdd", "DiagnosticOk" }, "#9ece6a")
-  local git_modified = color("fg", { "DiffChange", "DiagnosticWarn" }, "#e0af68")
-  local git_removed = color("fg", { "DiffDelete", "DiagnosticError" }, "#f7768e")
+  local surface = blend(bg, fg, 0.06)
 
-  local error_color = color("fg", { "DiagnosticError" }, "#f7768e")
-  local warn_color = color("fg", { "DiagnosticWarn" }, "#e0af68")
-  local type_color = color("fg", { "Type", "Special" }, "#7dcfff")
-  local number_color = color("fg", { "Number", "Constant" }, "#bb9af7")
-
-  --- The mode is a block of its own colour.
   ---@param accent string
-  ---@return table
   local function mode_theme(accent)
     return {
       a = { fg = accent, gui = "bold" },
@@ -114,55 +124,60 @@ local function theme()
   end
 
   return {
-    normal = mode_theme(mode_normal),
-    insert = mode_theme(mode_insert),
-    visual = mode_theme(mode_visual),
-    replace = mode_theme(mode_replace),
-    command = mode_theme(mode_command),
+    normal = mode_theme(normal),
+    insert = mode_theme(insert),
+    visual = mode_theme(visual),
+    replace = mode_theme(replace),
+    command = mode_theme(command),
     inactive = {
       a = { fg = dim, gui = "bold" },
       b = { fg = dim },
       c = { fg = dim },
     },
     git = {
-      added = { fg = git_added },
-      modified = { fg = git_modified },
-      removed = { fg = git_removed },
+      added = { fg = color("fg", { "DiffAdd", "DiagnosticOk" }, "#9ece6a") },
+      modified = { fg = color("fg", { "DiffChange", "DiagnosticWarn" }, "#e0af68") },
+      removed = { fg = color("fg", { "DiffDelete", "DiagnosticError" }, "#f7768e") },
     },
     diagnostics = {
-      error = { fg = error_color },
-      warn = { fg = warn_color },
+      error = { fg = color("fg", { "DiagnosticError" }, "#f7768e") },
+      warn = { fg = color("fg", { "DiagnosticWarn" }, "#e0af68") },
       info = { fg = dim },
       hint = { fg = dim },
     },
-    branch = { fg = git_branch },
-    type = { fg = type_color },
-    number = { fg = number_color },
   }
 end
 
 --- The groups the pieces are drawn with.
 --- They are defined here so a piece of text keeps its colour.
----@param colors table
-local function groups(colors)
+---@param surface string
+local function groups(surface)
+  local fg = color("fg", { "Normal", "StatusLine" }, "#c0caf5")
+  local dim = color("fg", { "Comment", "NonText" }, "#565f89")
+  local accent = color("fg", { "DiagnosticInfo", "Function" }, "#7aa2f7")
+  local number = color("fg", { "Number", "Constant" }, "#bb9af7")
+  local warn = color("fg", { "DiagnosticWarn" }, "#e0af68")
+  local error_color = color("fg", { "DiagnosticError" }, "#f7768e")
+  local type_color = color("fg", { "Type", "Special" }, "#7dcfff")
+
   local set = {
-    NeoworkbenchMode = { fg = colors.normal.a.fg, gui = "bold" },
-    NeoworkbenchBranch = { fg = colors.branch.fg },
-    NeoworkbenchFile = { fg = color("fg", { "Normal", "StatusLine" }, "#c0caf5") },
-    NeoworkbenchModified = { fg = color("fg", { "DiagnosticWarn" }, "#e0af68") },
-    NeoworkbenchAccent = { fg = colors.type.fg },
-    NeoworkbenchNumber = { fg = colors.number.fg },
-    NeoworkbenchDim = { fg = color("fg", { "Comment", "NonText" }, "#565f89") },
-    NeoworkbenchDiagError = { fg = colors.diagnostics.error.fg },
-    NeoworkbenchDiagWarn = { fg = colors.diagnostics.warn.fg },
-    NeoworkbenchBar = { fg = colors.number.fg },
+    PrismMode = { fg = mode_color(), gui = "bold" },
+    PrismBranch = { fg = color("fg", { "Directory", "Identifier" }, "#7aa2f7") },
+    PrismFile = { fg = fg },
+    PrismDir = { fg = dim },
+    PrismModified = { fg = warn },
+    PrismDiagError = { fg = error_color },
+    PrismDiagWarn = { fg = warn_color },
+    PrismType = { fg = type_color },
+    PrismNumber = { fg = number },
+    PrismDim = { fg = dim },
+    PrismSep = { fg = dim },
+    PrismBar = { fg = accent },
   }
 
   for name, spec in pairs(set) do
     pcall(vim.api.nvim_set_hl, 0, name, spec)
   end
-
-  return set
 end
 
 --- The mode with the icon of it.
@@ -173,23 +188,10 @@ local function mode_component()
     fmt = function(mode)
       local short = vim.fn.mode()
       local icon = mode_icons[short] or mode_icons[short:sub(1, 1)] or ""
-      return " " .. icon .. " " .. mode:upper() .. " "
+      return icon .. "  "
     end,
     color = function()
-      local mode = vim.fn.mode()
-      local accent
-      if mode == "i" or mode == "ic" or mode == "ix" then
-        accent = color("fg", { "DiagnosticInfo", "Function" }, "#7aa2f7")
-      elseif mode == "v" or mode == "V" or mode == "Vs" or mode == "s" or mode == "S" then
-        accent = color("fg", { "DiagnosticHint", "Special" }, "#bb9af7")
-      elseif mode == "R" or mode == "Rc" then
-        accent = color("fg", { "DiagnosticError", "Number" }, "#f7768e")
-      elseif mode == "c" or mode == "cv" or mode == "ce" then
-        accent = color("fg", { "DiagnosticWarn", "Identifier" }, "#e0af68")
-      else
-        accent = color("fg", { "DiagnosticOk", "String" }, "#9ece6a")
-      end
-      return { fg = accent, gui = "bold" }
+      return { fg = mode_color(), gui = "bold" }
     end,
   }
 end
@@ -200,7 +202,7 @@ local function file_component()
   return function()
     local path = vim.fn.expand("%:p")
     if path == "" then
-      return "%#NeoworkbenchDim#[No Name]%*"
+      return "%#PrismDim#[No Name]%*"
     end
 
     local dir, name = path:match("^(.*[/\\])([^/\\]*)$")
@@ -213,15 +215,36 @@ local function file_component()
       dir = "~" .. dir:sub(#home + 1)
     end
 
+    -- Dots instead of slashes, the way a namespace is written.
+    dir = dir:gsub("[/\\]", "·")
+
     local parts = {}
     if dir ~= "" then
-      parts[#parts + 1] = "%#NeoworkbenchDim#" .. dir .. "%*"
+      parts[#parts + 1] = "%#PrismDir#" .. dir .. "%*"
     end
-    parts[#parts + 1] = "%#NeoworkbenchFile#" .. name .. "%*"
+    parts[#parts + 1] = "%#PrismFile#" .. name .. "%*"
     if vim.bo.modified then
-      parts[#parts + 1] = "%#NeoworkbenchModified# ●%*"
+      parts[#parts + 1] = "%#PrismModified# ●%*"
     end
     return table.concat(parts)
+  end
+end
+
+--- The errors and the warnings, the ones that are not there are not shown.
+---@return function
+local function diagnostics_component()
+  return function()
+    local errors = #vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.ERROR })
+    local warnings = #vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.WARN })
+
+    local parts = {}
+    if errors > 0 then
+      parts[#parts + 1] = "%#PrismDiagError#󰅚" .. errors .. "%*"
+    end
+    if warnings > 0 then
+      parts[#parts + 1] = "%#PrismDiagWarn#󰄡" .. warnings .. "%*"
+    end
+    return table.concat(parts, " ")
   end
 end
 
@@ -243,11 +266,11 @@ local function filetype_component()
       end
     end
 
-    return "%#NeoworkbenchAccent#" .. icon .. filetype:upper() .. "%*"
+    return "%#PrismType#" .. icon .. filetype:upper() .. "%*"
   end
 end
 
---- The place in the file with a bar that shows how far it is.
+--- The place in the file with a vertical bar that shows how far it is.
 ---@return function
 local function position_component()
   return function()
@@ -258,36 +281,21 @@ local function position_component()
 
     local current = vim.fn.line(".")
     local ratio = current / total
-    local width = 8
-    local filled = math.floor(ratio * width + 0.5)
+    local height = 8
+    local filled = math.floor(ratio * height + 0.5)
 
     return string.format(
-      "%%#NeoworkbenchNumber#%d:%d%%*  %%#NeoworkbenchBar#%s%s%%*",
+      "%%#PrismNumber#%d:%d%%*  %%#PrismBar#%s%%*%%#PrismDim#%s%%*",
       current,
       vim.fn.col("."),
-      string.rep("▰", filled),
-      string.rep("▱", width - filled)
+      string.rep("▎", filled),
+      string.rep("▎", height - filled)
     )
   end
 end
 
---- The errors and the warnings, the ones that are not there are not shown.
----@return function
-local function diagnostics_component()
-  return function()
-    local errors = #vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.ERROR })
-    local warnings = #vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.WARN })
-
-    local parts = {}
-    if errors > 0 then
-      parts[#parts + 1] = "%#NeoworkbenchDiagError#󰅚 " .. errors .. "%*"
-    end
-    if warnings > 0 then
-      parts[#parts + 1] = "%#NeoworkbenchDiagWarn#󰄡 " .. warnings .. "%*"
-    end
-    return table.concat(parts, " ")
-  end
-end
+--- The diagonal separator.
+local sep = "%#PrismSep# ╱ %*"
 
 return {
   {
@@ -303,7 +311,7 @@ return {
         options = {
           globalstatus = true,
           separator_style = "rounded",
-          component_separators = { left = " │ ", right = " │ " },
+          component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
           disabled_filetypes = {
             statusline = { "help", "alpha", "dashboard", "neodash" },
@@ -316,32 +324,22 @@ return {
           lualine_b = {
             {
               "branch",
-              icon = "󰊢 ",
               color = { fg = color("fg", { "Directory", "Identifier" }, "#7aa2f7") },
             },
-            {
-              "diff",
-              symbols = { added = " +", modified = " ~", removed = " -" },
-            },
+            sep,
           },
           lualine_c = {
             file_component(),
+            sep,
           },
           lualine_x = {
             diagnostics_component(),
+            sep,
             filetype_component(),
+            sep,
             position_component(),
           },
           lualine_y = {
-            {
-              "lsp_status",
-              symbols = {
-                spinner = { "󰇘", "󰇙", "󰇚", "󰇛", "󰇜", "󰇝", "󰇞", "󰇟" },
-                done = "󰄬",
-                separator = " ",
-              },
-              show_name = false,
-            },
             {
               "datetime",
               style = "󰇭 %H:%M",
