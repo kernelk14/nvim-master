@@ -20,6 +20,9 @@ return {
     opts = {
       install = {
         check_on_startup = "none",
+        -- Never ask about installing the server. The binary comes from
+        -- Mason, it is installed in the background when it is missing.
+        confirm = false,
         bin = vim.fn.stdpath("data") .. "/mason/bin/phpactor.cmd",
       },
       lspconfig = {

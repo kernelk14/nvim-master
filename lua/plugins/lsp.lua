@@ -89,8 +89,9 @@ return {
       local lspconfig = require("lspconfig")
 
       require("mason-lspconfig").setup({
-        -- Minimal base: ensure lua_ls and intelephense are ready
-        ensure_installed = { "lua_ls", "intelephense" },
+        -- Minimal base: ensure lua_ls, intelephense and phpactor are ready.
+        -- They are installed in the background, nothing is asked.
+        ensure_installed = { "lua_ls", "intelephense", "phpactor" },
         automatic_installation = false,
         handlers = {
           -- Default handler for automatically configured servers
