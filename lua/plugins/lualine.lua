@@ -82,99 +82,36 @@ local function theme()
 end
 
 --- The file with the directory in a dim colour and the name in bold.
----@return table
+--- A component of lualine is a piece of text, the colours of the pieces are
+--- written into it with the codes of the statusline.
+---@return function
 local function file_component()
-  return {
-    function()
-      local path = vim.fn.expand("%:p")
-      if path == "" then
-        return ""
-      end
+  return function()
+    local path = vim.fn.expand("%:p")
+    if path == "" then
+      return "%#Comment#[No Name]%*"
+    end
 
-      local dir, name = path:match("^(.*[/\\])([^/\\]*)$")
-      if not dir then
-        dir, name = "", path
-      end
+    local dir, name = path:match("^(.*[/\\])([^/\\]*)$")
+    if not dir then
+      dir, name = "", path
+    end
 
-      local home = (vim.uv or vim.loop).os_homedir()
-      if home and home ~= "" and dir:sub(1, #home) == home then
-        dir = "~" .. dir:sub(#home + 1)
-      end
+    local home = (vim.uv or vim.loop).os_homedir()
+    if home and home ~= "" and dir:sub(1, #home) == home then
+      dir = "~" .. dir:sub(#home + 1)
+    end
 
-      local parts = {}
-      if dir ~= "" then
-        parts[#parts + 1] = { dir, "Comment" }
-      end
-      parts[#parts + 1] = { name, vim.bo.modified and "Bold" or "Normal" }
-      if vim.bo.modified then
-        parts[#parts + 1] = { " ●", "DiagnosticWarn" }
-      end
-      return parts
-    end,
-  }
-end
-
---- The errors and the warnings, the ones that are not there are not shown.
----@return table
-local function diagnostics_component()
-  return {
-    function()
-      local errors = #vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.ERROR })
-      local warnings = #vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.WARN })
-
-      local parts = {}
-      if errors > 0 then
-        parts[#parts + 1] = { " 󰅚 " .. errors, "DiagnosticError" }
-      end
-      if warnings > 0 then
-        parts[#parts + 1] = { "󰄡 " .. warnings, "DiagnosticWarn" }
-      end
-      return parts
-    end,
-  }
-end
-
---- The kind of the file with the icon of it.
----@return table
-local function filetype_component()
-  return {
-    function()
-      local filetype = vim.bo.filetype
-      if filetype == "" then
-        return ""
-      end
-
-      local icon = ""
-      local ok, devicons = pcall(require, "nvim-web-devicons")
-      if ok then
-        icon = devicons.get_icon_by_filetype(filetype, { default = false }) or ""
-        if icon ~= "" then
-          icon = icon .. " "
-        end
-      end
-
-      return { { icon .. filetype:upper(), "Type" } }
-    end,
-  }
-end
-
---- The place in the file and how much of it is shown.
----@return table
-local function position_component()
-  return {
-    function()
-      local parts = {}
-      parts[#parts + 1] = { string.format("%d:%d", vim.fn.line("."), vim.fn.col(".")), "Number" }
-
-      local percent = 0
-      local total = vim.fn.line("$")
-      if total > 0 then
-        percent = math.floor(vim.fn.line(".") / total * 100)
-      end
-      parts[#parts + 1] = { string.format(" %d%%", percent), "Comment" }
-      return parts
-    end,
-  }
+    local parts = {}
+    if dir ~= "" then
+      parts[#parts + 1] = "%#Comment#" .. dir .. "%*"
+    end
+    parts[#parts + 1] = "%#Bold#" .. name .. "%*"
+    if vim.bo.modified then
+      parts[#parts + 1] = "%#DiagnosticWarn# ●%*"
+    end
+    return table.concat(parts)
+  end
 end
 
 return {
@@ -208,9 +145,19 @@ return {
           },
           lualine_c = { file_component() },
           lualine_x = {
-            diagnostics_component(),
-            filetype_component(),
-            position_component(),
+            {
+              "diagnostics",
+              symbols = { error = "󰅚 ", warn = "󰄡 ", info = "󰋽 ", hint = "󰌵 " },
+              colored = true,
+            },
+            {
+              "filetype",
+              color = { fg = color("fg", { "Type", "Special" }, "#7dcfff") },
+            },
+            {
+              "location",
+              color = { fg = color("fg", { "Number", "Constant" }, "#bb9af7") },
+            },
           },
           lualine_y = {
             {
@@ -228,6 +175,9 @@ return {
               color = { fg = color("fg", { "Comment", "NonText" }, "#565f89") },
             },
           },
+          -- The place in the file is in the right section already, the one of
+          -- the defaults would show it twice.
+          lualine_z = {},
         },
       }
     end,
