@@ -88,5 +88,22 @@ return {
       -- plugin on the first press.
       keys = false,
     },
+    config = function(plugin, opts)
+      require("neoworkbench").setup(opts)
+
+      -- A lone dot on the command line opens the file picker instead of the
+      -- workbench. The workbench would have nothing to show.
+      if vim.fn.argc() == 1 and vim.fn.argv(0) == "." then
+        vim.schedule(function()
+          local ok, telescope = pcall(require, "telescope.builtin")
+          if ok then
+            telescope.find_files()
+          else
+            -- Fall back to the built in picker.
+            vim.cmd("edit .")
+          end
+        end)
+      end
+    end,
   },
 }
