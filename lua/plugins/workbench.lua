@@ -62,6 +62,7 @@ return {
       { "<leader>WL", "<cmd>WorkbenchLayout<CR>", desc = "Workbench layout" },
       { "<leader>Ws", "<cmd>WorkbenchSave<CR>", desc = "Workbench save session" },
       { "<leader>Wc", "<cmd>WorkbenchClose<CR>", desc = "Workbench close" },
+      { "<leader>Wm", "<cmd>WorkbenchPopup<CR>", desc = "Workbench popup menu" },
     },
     opts = {
       layout = "default",
