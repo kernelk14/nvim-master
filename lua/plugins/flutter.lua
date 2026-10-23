@@ -11,8 +11,20 @@ return {
       "stevearc/dressing.nvim",
     },
     keys = {
-      { "<leader>Fs", "<cmd>FlutterRun<cr>", desc = "Flutter Run" },
-      { "<leader>Fr", "<cmd>FlutterReload<cr>", desc = "Flutter Hot Reload" },
+      {
+        "<leader>Fs",
+        function()
+          require("neoworkbench").flutter_run()
+        end,
+        desc = "Flutter Run (pick platform)",
+      },
+      {
+        "<leader>Fr",
+        function()
+          require("neoworkbench").flutter_reload()
+        end,
+        desc = "Flutter Hot Reload (pick action)",
+      },
       { "<leader>FR", "<cmd>FlutterRestart<cr>", desc = "Flutter Hot Restart" },
       { "<leader>Fq", "<cmd>FlutterQuit<cr>", desc = "Flutter Quit" },
       { "<leader>Fd", "<cmd>FlutterDevices<cr>", desc = "Flutter Devices" },
