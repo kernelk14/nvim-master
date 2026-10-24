@@ -10,14 +10,14 @@ A clean, modular, and performant Neovim configuration built from the ground up u
 ![Neovim Version](https://img.shields.io/badge/Neovim-0.10.0%2B-57A143?logo=neovim&logoColor=white)
 ![Platforms](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue)
 ![Architecture](https://img.shields.io/badge/Arch-x86__64%20%7C%20ARM64-orange)
-![Startup Time](https://img.shields.io/badge/Startup-%3C35ms-brightgreen)
+![Startup Time](https://img.shields.io/badge/Startup-lazy%20loaded-brightgreen)
 ![Authored By](https://img.shields.io/badge/Authored%20by-AI-ff69b4?style=flat-square)
 
 ---
 
 ## Highlights
 
-- **Fast & Minimal**: Clean startup in under 35ms with zero bloat and aggressive lazy-loading.
+- **Fast & Minimal**: Zero bloat and aggressive lazy-loading; measure the startup on your own hardware.
 - **Pure Core Isolation**: Core options, keymaps, and autocommands run completely independently of plugins.
 - **Resilient & Safe**: Graceful degradation when external tools (`ripgrep`, C compilers, clipboard utilities) are missing.
 - **Cross-Platform**: Seamless path handling and automated bootstrap scripts for Windows (PowerShell), Linux, and macOS (POSIX Bash).
@@ -336,6 +336,20 @@ Leader key is mapped to `<Space>`.
 | `<leader>hb` | Normal | Show git blame for current line |
 | `<leader>hd` | Normal | Diff current file against git index |
 
+### Flutter (flutter-tools.nvim, active for Dart buffers)
+| Keybinding | Mode | Action |
+| :--- | :--- | :--- |
+| `<leader>Fs` | Normal | Run the app and pick the platform in a popup |
+| `<leader>Fr` | Normal | Hot reload, pick reload or restart in a popup |
+| `<leader>FR` | Normal | Hot restart |
+| `<leader>Fq` | Normal | Quit the running app |
+| `<leader>Fd` | Normal | Pick a device |
+| `<leader>Fe` | Normal | Pick an emulator |
+| `<leader>Fo` | Normal | Toggle the Flutter outline |
+| `<leader>FD` | Normal | Open Flutter DevTools |
+| `<leader>Fp` | Normal | Copy the profiler URL |
+| `<leader>FL` | Normal | Toggle the Flutter log |
+
 ### Workbench (nvim-workbench)
 | Keybinding | Mode | Action |
 | :--- | :--- | :--- |
@@ -343,20 +357,27 @@ Leader key is mapped to `<Space>`.
 | `<leader>Wh` / `<leader>Wj` / `<leader>Wk` / `<leader>Wl` | Normal | Move the focus between the panes |
 | `<leader>Wi` | Normal | Focus the file explorer |
 | `<leader>Wp` | Normal | Cycle the panel (problems, quickfix, output, terminal) |
+| `<leader>Wt` | Normal | Open the terminal panel |
+| `<leader>Wx` | Normal | Open the problems panel |
+| `<leader>Wo` | Normal | Open the output panel |
+| `<leader>Wq` | Normal | Open the quickfix panel |
 | `<leader>WL` | Normal | Change the layout |
-| `<leader>Wq` | Normal | Close the workbench |
+| `<leader>Ws` | Normal | Save the session |
+| `<leader>Wc` | Normal | Close the workbench |
+| `<leader>Wm` | Normal | Open the popup menu |
 
-The workbench is the start screen, it opens when the editor is up. The plugin
-is loaded on the `VimEnter` event, so the startup of the editor itself stays
-fast and the layout appears right after the first frame. A file on the command
-line still wins, the workbench does not get in the way of opening it.
+The workbench is where a file is edited. The plugin is loaded on the
+`VimEnter` event, so the startup of the editor itself stays fast. A file on
+the command line opens the workbench with the file in the editor pane, no file
+opens the dashboard instead.
 
-The start screen is still available with `<leader>d`, and it offers the
-workbench as well.
+The dashboard is the start screen, it is available at any time with
+`<leader>d`, and it offers the workbench as well.
 
 The explorer pane is served by the built in file tree of the workbench, it
 shows the project with the usual icons and opens a file in the editor pane.
-The plugin can also hand the pane over to
+Folders are folded by default, dotfiles are hidden, and the git status of an
+entry is shown next to its name. The plugin can also hand the pane over to
 [oil.nvim](https://github.com/stevearc/oil.nvim), change one line to do it:
 
 ```lua
@@ -446,7 +467,7 @@ nvim --startuptime startuptime.log +q
 ```
 
 Open `startuptime.log` to inspect startup metrics:
-- Typical startup time on modern hardware: **18ms – 32ms**.
+- The numbers depend on the platform, the disk and the installed plugins.
 - The bottom lines of `startuptime.log` display total elapsed time from execution to ready state.
 
 Inside Neovim, run:
