@@ -105,3 +105,15 @@ Inside Neovim, run:
 :Lazy profile
 ```
 This provides an interactive table of every loaded plugin and its execution duration.
+
+### 5. Update Script Dry Run (Lockfile Restore)
+```bash
+# Linux / macOS
+./scripts/update.sh --dry-run
+./scripts/update.sh --no-pull
+
+# Windows (PowerShell)
+powershell -ExecutionPolicy Bypass -File .\scripts\update.ps1 -DryRun
+powershell -ExecutionPolicy Bypass -File .\scripts\update.ps1 -NoPull
+```
+Expected: prints intended `git pull --ff-only` (unless skipped) and `nvim --headless "+Lazy! restore" +qa`; no lockfile mutation on restore.

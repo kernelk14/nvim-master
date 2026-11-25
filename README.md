@@ -505,9 +505,12 @@ Install a Nerd Font (e.g., JetBrainsMono Nerd Font, FiraCode Nerd Font) from [ne
 ## Updating & Uninstalling
 
 ### Updating
-- Update plugins: Inside Neovim, run `:Lazy update`
-- Update Treesitter parsers: Run `:TSUpdate`
-- Update Mason packages: Run `:MasonUpdate`
+- Restore plugins to latest repo commit lockfile (recommended): `./scripts/update.sh` (Linux/macOS) or `powershell -ExecutionPolicy Bypass -File .\scripts\update.ps1` (Windows)
+  - These scripts run `git pull --ff-only` and `nvim --headless "+Lazy! restore" +qa`
+  - Use `--no-pull` / `-NoPull` to restore from the currently checked-out `lazy-lock.json`
+- Update plugin pins upstream: inside Neovim, run `:Lazy update` (then commit `lazy-lock.json`)
+- Update Treesitter parsers: `:TSUpdate`
+- Update Mason packages: `:MasonUpdate`
 
 ### Uninstalling
 To remove this configuration and restore a backup:

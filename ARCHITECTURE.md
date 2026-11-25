@@ -54,7 +54,9 @@ nvim/
 │       └── coding.lua         # Autopairs and Gitsigns (gutter status & hunks)
 ├── scripts/
 │   ├── install.sh             # POSIX / macOS bootstrap script (safe backup, symlink/copy)
-│   └── install.ps1            # Windows PowerShell bootstrap script (safe backup, junction/copy)
+│   ├── install.ps1            # Windows PowerShell bootstrap script (safe backup, junction/copy)
+│   ├── update.sh              # POSIX / macOS update script (git pull + Lazy restore)
+│   └── update.ps1             # Windows PowerShell update script (git pull + Lazy restore)
 ├── .editorconfig              # Consistent whitespace and line ending rules
 ├── .gitignore                 # Excludes caches, swapfiles, and runtime artifacts
 ├── ARCHITECTURE.md            # Architectural specification (this document)
